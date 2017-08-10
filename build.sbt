@@ -5,7 +5,7 @@ name          := """hello-world"""
 organization  := "nl.weeronline"
 scalaVersion  := "2.11.11"
 
-credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
+credentials += Credentials(Path.userHome / ".sbt" / "credentials")
 
 resolvers += Resolver.jcenterRepo
 
@@ -34,7 +34,6 @@ scalacOptions := Seq(
   "-feature",
   "-unchecked",
   "-deprecation",
-  "-target:jvm-1.7",
   "-Xlog-reflective-calls",
   "-Ypatmat-exhaust-depth", "40",
   "-Xmax-classfile-name", "240", // for docker container
@@ -50,26 +49,6 @@ publishMavenStyle := true
 publishArtifact in Test := false
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 pomIncludeRepository := { _ => false }
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
-pomExtra :=
-  <url>https://github.com/cupenya/hello-world-service</url>
-  <licenses>
-    <license>
-      <name>Apache-2.0</name>
-      <url>http://opensource.org/licenses/Apache-2.0</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-    <url>https://github.com/cupenya/hello-world-microservice</url>
-    <connection>scm:git:git@github.com:cupenya/hello-world-microservice.git</connection>
-  </scm>
 
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
@@ -98,10 +77,10 @@ publishArtifact in (Compile, packageDoc) := false
 
 val shortCommit = ("git rev-parse --short HEAD" !!).replaceAll("\\n", "").replaceAll("\\r", "")
 
-packageName in Docker := "cpy-docker-test/" + name.value
+packageName in Docker := "weeronline-apps/" + name.value
 version in Docker     := shortCommit
-daemonUser in Docker  := "hello-world"
-dockerBaseImage       := "airdock/oracle-jdk:jdk-1.8"
+daemonUser in Docker  := "app"
+dockerBaseImage       := "openjdk:8-jdk-alpine"
 defaultLinuxInstallLocation in Docker := s"/opt/${name.value}" // to have consistent directory for files
 dockerRepository := Some("eu.gcr.io")
 
