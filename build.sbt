@@ -3,30 +3,26 @@ import com.typesafe.sbt.packager.docker.Cmd
 
 name          := """hello-world"""
 organization  := "nl.weeronline"
-scalaVersion  := "2.11.8"
+scalaVersion  := "2.11.11"
 
 credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
 
 resolvers += Resolver.jcenterRepo
 
 libraryDependencies ++= {
-  val akkaV            = "2.4.10"
-  val scalaTestV       = "3.0.0-M15"
-  val slf4sV           = "1.7.10"
-  val logbackV         = "1.1.3"
-  val commonsLang3V    = "3.4"
-  val commonsCodecV    = "1.10"
-  val jwtV             = "0.8.1"
+  val akkaV            = "10.0.9"
+  val akkaSlf4jV       = "2.4.19"
+  val scalaTestV       = "3.0.3"
+  val slf4sV           = "1.7.25"
+  val logbackV         = "1.2.3"
+  val jwtV             = "0.14.0"
 
   Seq(
-    "com.typesafe.akka" %% "akka-http-core"                    % akkaV,
-    "com.typesafe.akka" %% "akka-http-experimental"            % akkaV,
-    "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaV,
-    "com.typesafe.akka" %% "akka-slf4j"                        % akkaV,
+    "com.typesafe.akka" %% "akka-http"                         % akkaV,
+    "com.typesafe.akka" %% "akka-http-spray-json"              % akkaV,
+    "com.typesafe.akka" %% "akka-slf4j"                        % akkaSlf4jV,
     "org.slf4s"         %% "slf4s-api"                         % slf4sV,
     "com.pauldijou"     %% "jwt-core"                          % jwtV,
-    "org.apache.commons"% "commons-lang3"                      % commonsLang3V,
-    "commons-codec"     % "commons-codec"                      % commonsCodecV,
     "ch.qos.logback"    % "logback-classic"                    % logbackV,
     "org.scalatest"     %% "scalatest"                         % scalaTestV       % Test,
     "com.typesafe.akka" %% "akka-http-testkit"                 % akkaV            % Test
