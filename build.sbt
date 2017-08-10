@@ -79,8 +79,15 @@ val shortCommit = ("git rev-parse --short HEAD" !!).replaceAll("\\n", "").replac
 
 packageName in Docker := "weeronline-apps/" + name.value
 version in Docker     := shortCommit
-daemonUser in Docker  := "app"
 dockerBaseImage       := "openjdk:8-jdk-alpine"
 defaultLinuxInstallLocation in Docker := s"/opt/${name.value}" // to have consistent directory for files
 dockerRepository := Some("eu.gcr.io")
+
+dockerCommands := dockerCommands.value.flatMap{
+  case cmd@Cmd("FROM",_) => List(
+    cmd,
+    Cmd("RUN", "apk update && apk add bash")
+  )
+  case other => List(other)
+}
 
