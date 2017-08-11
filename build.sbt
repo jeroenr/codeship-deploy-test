@@ -80,7 +80,7 @@ val shortCommit = ("git rev-parse --short HEAD" !!).replaceAll("\\n", "").replac
 
 packageName in Docker := "weeronline-apps/" + name.value
 version in Docker     := shortCommit
-dockerBaseImage       := "openjdk:8-jdk-alpine"
+dockerBaseImage       := "openjdk:8-jre-alpine"
 defaultLinuxInstallLocation in Docker := s"/opt/${name.value}" // to have consistent directory for files
 dockerRepository := Some("eu.gcr.io")
 
