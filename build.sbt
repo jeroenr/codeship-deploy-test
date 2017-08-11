@@ -71,6 +71,7 @@ updateOptions := updateOptions.value.withCachedResolution(true)
 
 // docker
 enablePlugins(JavaServerAppPackaging)
+enablePlugins(AshScriptPlugin)
 enablePlugins(DockerPlugin)
 
 publishArtifact in (Compile, packageDoc) := false
@@ -82,12 +83,4 @@ version in Docker     := shortCommit
 dockerBaseImage       := "openjdk:8-jdk-alpine"
 defaultLinuxInstallLocation in Docker := s"/opt/${name.value}" // to have consistent directory for files
 dockerRepository := Some("eu.gcr.io")
-
-dockerCommands := dockerCommands.value.flatMap{
-  case cmd@Cmd("FROM",_) => List(
-    cmd,
-    Cmd("RUN", "apk update && apk add bash")
-  )
-  case other => List(other)
-}
 
