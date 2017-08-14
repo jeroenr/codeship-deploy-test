@@ -2,7 +2,6 @@ testapp:
   image: eu.gcr.io/weeronline-apps/sbt-git-docker
   add_docker: true
   encrypted_env_file: google_deployment.env.encrypted
-  encrypted_dockercfg_path: google_deployment.env.encrypted
   volumes_from:
     - source # mount data-only container which contains project source so sbt can build it
 
