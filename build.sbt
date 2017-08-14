@@ -24,7 +24,7 @@ libraryDependencies ++= {
     "org.slf4s"         %% "slf4s-api"                         % slf4sV,
     "com.pauldijou"     %% "jwt-core"                          % jwtV,
     "ch.qos.logback"    % "logback-classic"                    % logbackV,
-    "com.spotify" 	% "docker-client" 		       % "3.5.13",
+    "com.spotify" 	    % "docker-client" 		                 % "8.8.4",
     "org.scalatest"     %% "scalatest"                         % scalaTestV       % Test,
     "com.typesafe.akka" %% "akka-http-testkit"                 % akkaV            % Test
   )
@@ -74,7 +74,7 @@ updateOptions := updateOptions.value.withCachedResolution(true)
 enablePlugins(JavaServerAppPackaging)
 enablePlugins(AshScriptPlugin)
 enablePlugins(DockerPlugin)
-enablePlugins(DockerSpotifyClientPlugin)
+//enablePlugins(DockerSpotifyClientPlugin)
 
 publishArtifact in (Compile, packageDoc) := false
 
