@@ -1,5 +1,5 @@
 testapp:
-  image: eu.gcr.io/weeronline-apps/docker-sbt-git
+  image: eu.gcr.io/weeronline-apps/sbt-git-docker
   volumes_from:
     - source # mount data-only container which contains project source so sbt can build it
 
@@ -7,13 +7,6 @@ source:
   image: busybox
   volumes:
     - .:/app # mount project root to app
-
-helloworldmicroservice:
-  build:
-    dockerfile: target/docker/Dockerfile
-    image: eu.gcr.io/weeronline-apps/hello-world-microservice
-    encrypted_args_file: google_deployment.env.encrypted
-  cached: true
 
 # Codeship Deployments
 gcr_dockercfg:

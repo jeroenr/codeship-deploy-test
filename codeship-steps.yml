@@ -1,0 +1,11 @@
+- name: Run tests
+  tag: ^(feature/.*)$
+  service: testapp
+  dockercfg_service: gcr_dockercfg
+  command: sbt test
+
+- name: Build and push image
+  tag: ^(develop|master|release.*)
+  service: testapp
+  dockercfg_service: gcr_dockercfg
+  command: sbt docker:publish
