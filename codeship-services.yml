@@ -13,7 +13,7 @@ source:
     - .:/app # mount project root to app
 
 testvolume:
-  build: ./
+  image: busybox
   volumes_from:
     - build
 
