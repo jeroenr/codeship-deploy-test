@@ -20,9 +20,8 @@ testvolume:
 deploy:
   build:
     context: /tmp/target/docker
-#    dockerfile: Dockerfile
+    dockerfile: Dockerfile
     image: eu.gcr.io/weeronline-apps/hello-world
-    encrypted_args_file: google_deployment.env.encrypted
   volumes_from:
     - build
 
