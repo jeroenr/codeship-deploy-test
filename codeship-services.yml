@@ -1,5 +1,6 @@
 testapp:
   image: eu.gcr.io/weeronline-apps/sbt-git-docker
+  add_docker: true
   volumes_from:
     - source # mount data-only container which contains project source so sbt can build it
 
