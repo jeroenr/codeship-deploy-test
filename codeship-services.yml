@@ -14,10 +14,10 @@ gcr_dockercfg:
   image: codeship/gcr-dockercfg-generator
   add_docker: true
   encrypted_env_file: google_deployment.env.encrypted
-googleclouddeployment:
-  image: eu.gcr.io/zoover-apps/google-cloud-deployment
-  encrypted_dockercfg_path: zoover_gcr_dockercfg.encrypted
-  encrypted_env_file: google_deployment.env.encrypted
-  add_docker: true
-  volumes:
-    - ./helm_values:/helm/values
+#googleclouddeployment:
+#  image: eu.gcr.io/zoover-apps/google-cloud-deployment
+#  encrypted_dockercfg_path: zoover_gcr_dockercfg.encrypted
+#  encrypted_env_file: google_deployment.env.encrypted
+#  add_docker: true
+#  volumes:
+#    - ./helm_values:/helm/values
