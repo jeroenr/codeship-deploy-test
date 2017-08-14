@@ -2,7 +2,7 @@
   tag: ^(feature/.*)$
   service: build
   dockercfg_service: gcr_dockercfg
-  command: sbt test
+  command: sbt test && mv target /tmp/target
 
 - name: Build image
   tag: ^(develop|master|release.*)
@@ -13,12 +13,12 @@
 - name: List target dir
   tag: ^(develop|master|release.*)
   service: deploy
-  command: ls target
+  command: ls /tmp/target
 
 - name: View Dockerfile
   tag: ^(develop|master|release.*)
   service: deploy
-  command: cat target/docker/Dockerfile
+  command: cat /tmp/target/docker/Dockerfile
 
 #- name: Push image
 #  tag: ^(develop|master|release.*)
