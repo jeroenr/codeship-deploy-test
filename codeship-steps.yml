@@ -12,12 +12,12 @@
 
 - name: List target dir
   tag: ^(develop|master|release.*)
-  service: deploy
+  service: testvolume
   command: ls /tmp/target
 
 - name: View Dockerfile
   tag: ^(develop|master|release.*)
-  service: deploy
+  service: testvolume
   command: cat /tmp/target/docker/Dockerfile
 
 #- name: Push image
@@ -26,7 +26,7 @@
 #  dockercfg_service: gcr_dockercfg
 #  command: sbt docker:publish
 
-- name: Push imagedelivery
+- name: Push
   tag: ^(develop|master|release.*)
   type: push
   service: deploy

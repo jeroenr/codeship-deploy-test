@@ -12,6 +12,11 @@ source:
   volumes:
     - .:/app # mount project root to app
 
+testvolume:
+  build: ./
+  volumes_from:
+    - build
+
 deploy:
   build:
     dockerfile: /tmp/target/docker/Dockerfile
