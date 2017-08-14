@@ -2,7 +2,7 @@
   tag: ^(feature/.*)$
   service: build
   dockercfg_service: gcr_dockercfg
-  command: sbt test && mv target /tmp/target
+  command: sbt test
 
 - name: Build image
   tag: ^(develop|master|release.*)
