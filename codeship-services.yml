@@ -3,7 +3,7 @@ build:
   add_docker: true
   encrypted_env_file: google_deployment.env.encrypted
   volumes:
-    - ./target:/tmp/target
+    - .:/tmp
   volumes_from:
     - source # mount data-only container which contains project source so sbt can build it
 
@@ -19,7 +19,8 @@ testvolume:
 
 deploy:
   build:
-    dockerfile: /tmp/target/docker/Dockerfile
+    context: /tmp/target/docker
+    dockerfile: Dockerfile
     image: eu.gcr.io/weeronline-apps/hello-world
   volumes_from:
     - build
