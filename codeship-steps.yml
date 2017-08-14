@@ -4,7 +4,13 @@
   dockercfg_service: gcr_dockercfg
   command: sbt test
 
-- name: Build and push image
+- name: Build image
+  tag: ^(develop|master|release.*)
+  service: testapp
+  dockercfg_service: gcr_dockercfg
+  command: sbt docker:publishLocal
+
+- name: Push image
   tag: ^(develop|master|release.*)
   service: testapp
   dockercfg_service: gcr_dockercfg
