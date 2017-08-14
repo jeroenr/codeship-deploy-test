@@ -19,11 +19,13 @@ testvolume:
 
 deploy:
   build:
-    context: /tmp/target/docker
+#    context: /tmp/target/docker
     dockerfile: Dockerfile
     image: eu.gcr.io/weeronline-apps/hello-world
-  volumes_from:
-    - build
+#  volumes_from:
+#    - build
+  volumes:
+    - .:/tmp/target/docker
 
 # Codeship Deployments
 gcr_dockercfg:
