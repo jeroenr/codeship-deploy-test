@@ -1,17 +1,36 @@
 - name: Run tests
   tag: ^(feature/.*)$
-  service: testapp
+  service: build
   dockercfg_service: gcr_dockercfg
   command: sbt test
 
 - name: Build image
   tag: ^(develop|master|release.*)
-  service: testapp
+  service: build
   dockercfg_service: gcr_dockercfg
   command: sbt docker:publishLocal
 
-- name: Push image
+- name: List target dir
   tag: ^(develop|master|release.*)
-  service: testapp
+  service: deploy
+  command: ls target
+
+- name: View Dockerfile
+  tag: ^(develop|master|release.*)
+  service: deploy
+  command: cat target/docker/Dockerfile
+
+#- name: Push image
+#  tag: ^(develop|master|release.*)
+#  service: testapp
+#  dockercfg_service: gcr_dockercfg
+#  command: sbt docker:publish
+
+- name: Push imagedelivery
+  tag: ^(develop|master|release.*)
+  type: push
+  service: deploy
+  image_name: eu.gcr.io/weeronline-apps/hello-world
+  image_tag: "{{.CommitID}}"
+  registry: eu.gcr.io
   dockercfg_service: gcr_dockercfg
-  command: sbt docker:publish
