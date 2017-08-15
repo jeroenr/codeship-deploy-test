@@ -7,31 +7,42 @@ def getGitRev() {
   return gitRev
 }
 
-node {
-  echo "starting process"
+podTemplate(label: 'sbt', containers: [
+        containerTemplate(name: 'maven', image: '1science/sbt', ttyEnabled: true, command: 'cat')
+]) {
 
-  def sbtHome = tool 'sbt-0.13.12'
-  def SBT = "${sbtHome}/bin/sbt -Dsbt.log.noformat=true"
+  node('sbt') {
+    echo "starting process"
+//
+//    def sbtHome = tool 'sbt-0.13.12'
+//    def SBT = "${sbtHome}/bin/sbt -Dsbt.log.noformat=true"
 
-  def branch = env.BRANCH_NAME
+    def branch = env.BRANCH_NAME
 
-  echo "current branch is ${branch}"
+    echo "current branch is ${branch}"
 
-  checkout scm
+    checkout scm
 
-  stage('compile') {
-    sh "${SBT} compile"   
-  }
+    stage('compile') {
+      container('sbt') {
+        sh "sbt compile"
+      }
+    }
 
-  stage('test') {
-    sh "${SBT} test"
-  }
-  
-  stage('publish') {
-    withCredentials([file(credentialsId: "${brand}-gce-service-account", variable: 'FILE')]) {
-      sh "set +x; docker login -u _json_key -p \"\$(cat $FILE)\" https://eu.gcr.io; set -x"
-      ansiColor('xterm') {
-        sh "${SBT} docker:publish"
+    stage('test') {
+      container('sbt') {
+        sh "sbt test"
+      }
+    }
+
+    stage('publish') {
+      container('sbt') {
+        withCredentials([file(credentialsId: "${brand}-gce-service-account", variable: 'FILE')]) {
+          sh "set +x; docker login -u _json_key -p \"\$(cat $FILE)\" https://eu.gcr.io; set -x"
+          ansiColor('xterm') {
+            sh "sbt docker:publish"
+          }
+        }
       }
     }
   }
