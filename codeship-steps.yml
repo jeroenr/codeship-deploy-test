@@ -3,11 +3,11 @@
   service: build
   command: sbt test
 
-#- name: Build Dockerfile
-#  tag: ^(develop|master|release.*)
-#  service: build
-#  dockercfg_service: gcr_dockercfg
-#  command: sbt docker:stage
+- name: Build Dockerfile
+  tag: ^(develop|master|release.*)
+  service: build
+  dockercfg_service: gcr_dockercfg
+  command: sbt docker:stage
 
 #- name: Build image
 #  tag: ^(develop|master|release.*)
@@ -32,16 +32,16 @@
 #  service: testvolume
 #  command: docker save -o hello-world.tar eu.gcr.io/weeronline-apps/hello-world
 
-- name: Push image
-  tag: ^(develop|master|release.*)
-  service: build
-  command: sbt docker:publish
-
-#- name: Push
+#- name: Push image
 #  tag: ^(develop|master|release.*)
-#  type: push
-#  service: testvolume
-#  image_name: eu.gcr.io/weeronline-apps/hello-world
-#  image_tag: "{{.CommitID}}"
-#  registry: eu.gcr.io
-#  dockercfg_service: gcr_dockercfg
+#  service: build
+#  command: sbt docker:publish
+
+- name: Push
+  tag: ^(develop|master|release.*)
+  type: push
+  service: deploy
+  image_name: eu.gcr.io/weeronline-apps/hello-world
+  image_tag: "{{.CommitID}}"
+  registry: eu.gcr.io
+  dockercfg_service: gcr_dockercfg
