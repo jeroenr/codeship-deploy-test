@@ -26,7 +26,7 @@
   tag: ^(develop|master|release.*)
   service: testvolume
   dockercfg_service: gcr_dockercfg
-  command: cat .docker/config.json
+  command: cat ~/.docker/config.json
 #
 #- name: Save docker locally
 #  tag: ^(develop|master|release.*)
