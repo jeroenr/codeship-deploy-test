@@ -1,5 +1,5 @@
 build:
-  image: eu.gcr.io/weeronline-apps/sbt-git-docker:test
+  image: eu.gcr.io/weeronline-apps/sbt-git-docker
   add_docker: true
   encrypted_dockercfg_path: gcr_dockercfg.env.encrypted
   encrypted_env_file: google_deployment.env.encrypted
@@ -23,7 +23,7 @@ source:
 
 deploy:
   build:
-    path: ./target/docker
+    path: /tmp/target/docker
     dockerfile: Dockerfile
     image: eu.gcr.io/weeronline-apps/hello-world
   volumes_from:

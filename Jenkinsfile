@@ -8,7 +8,9 @@ def getGitRev() {
 }
 
 node {
-  def sbtHome = tool 'default-sbt'
+  echo "starting process"
+
+  def sbtHome = tool 'sbt-0.13.12'
   def SBT = "${sbtHome}/bin/sbt -Dsbt.log.noformat=true"
 
   def branch = env.BRANCH_NAME
