@@ -1,7 +1,6 @@
 - name: Run tests
   tag: ^(feature/.*)$
   service: build
-  dockercfg_service: gcr_dockercfg
   command: sbt test
 
 #- name: Build Dockerfile
@@ -36,7 +35,6 @@
 - name: Push image
   tag: ^(develop|master|release.*)
   service: build
-  dockercfg_service: gcr_dockercfg
   command: sbt docker:publish
 
 #- name: Push
