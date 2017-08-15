@@ -4,27 +4,27 @@
   dockercfg_service: gcr_dockercfg
   command: sbt test
 
-- name: Build image
+#- name: Build image
+#  tag: ^(develop|master|release.*)
+#  service: build
+#  dockercfg_service: gcr_dockercfg
+#  command: sbt docker:publishLocal
+#
+#- name: View Dockerfile
+#  tag: ^(develop|master|release.*)
+#  service: testvolume
+#  command: cat /tmp/target/docker/Dockerfile
+#
+#- name: Save docker locally
+#  tag: ^(develop|master|release.*)
+#  service: testvolume
+#  command: docker save -o hello-world.tar eu.gcr.io/weeronline-apps/hello-world
+
+- name: Push image
   tag: ^(develop|master|release.*)
   service: build
   dockercfg_service: gcr_dockercfg
-  command: sbt docker:publishLocal
-
-- name: View Dockerfile
-  tag: ^(develop|master|release.*)
-  service: testvolume
-  command: cat /tmp/target/docker/Dockerfile
-
-- name: Save docker locally
-  tag: ^(develop|master|release.*)
-  service: testvolume
-  command: docker save -o hello-world.tar eu.gcr.io/weeronline-apps/hello-world
-
-#- name: Push image
-#  tag: ^(develop|master|release.*)
-#  service: testapp
-#  dockercfg_service: gcr_dockercfg
-#  command: sbt docker:publish
+  command: sbt docker:publish
 
 - name: Push
   tag: ^(develop|master|release.*)
