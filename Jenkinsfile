@@ -35,15 +35,33 @@ podTemplate(label: 'sbt', containers: [
       }
     }
 
-    stage('publish') {
+    stage('build dockerfile') {
       container('sbt') {
-        withCredentials([file(credentialsId: "${brand}-gce-service-account", variable: 'FILE')]) {
-          sh "set +x; docker login -u _json_key -p \"\$(cat $FILE)\" https://eu.gcr.io; set -x"
-          ansiColor('xterm') {
-            sh "sbt docker:publish"
-          }
-        }
+        sh "sbt docker:stage"
       }
     }
+
+    stage('list dockerfile') {
+      container('sbt') {
+        sh "ls target/docker"
+      }
+    }
+
+    stage('build image') {
+      container('sbt') {
+        sh "sbt docker:publishLocal"
+      }
+    }
+
+//    stage('publish') {
+//      container('sbt') {
+//        withCredentials([file(credentialsId: "${brand}-gce-service-account", variable: 'FILE')]) {
+//          sh "set +x; docker login -u _json_key -p \"\$(cat $FILE)\" https://eu.gcr.io; set -x"
+//          ansiColor('xterm') {
+//            sh "sbt docker:publish"
+//          }
+//        }
+//      }
+//    }
   }
 }
