@@ -8,7 +8,7 @@ def getGitRev() {
 }
 
 podTemplate(label: 'sbt', containers: [
-        containerTemplate(name: 'maven', image: '1science/sbt', ttyEnabled: true, command: 'cat')
+        containerTemplate(name: 'sbt', image: '1science/sbt', ttyEnabled: true, command: 'cat')
 ]) {
 
   node('sbt') {
