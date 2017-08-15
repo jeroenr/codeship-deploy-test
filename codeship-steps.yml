@@ -26,11 +26,11 @@
   dockercfg_service: gcr_dockercfg
   command: sbt docker:publish
 
-- name: Push
-  tag: ^(develop|master|release.*)
-  type: push
-  service: testvolume
-  image_name: eu.gcr.io/weeronline-apps/hello-world
-  image_tag: "{{.CommitID}}"
-  registry: eu.gcr.io
-  dockercfg_service: gcr_dockercfg
+#- name: Push
+#  tag: ^(develop|master|release.*)
+#  type: push
+#  service: testvolume
+#  image_name: eu.gcr.io/weeronline-apps/hello-world
+#  image_tag: "{{.CommitID}}"
+#  registry: eu.gcr.io
+#  dockercfg_service: gcr_dockercfg
