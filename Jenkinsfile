@@ -15,6 +15,7 @@ def buildAndPush(brand) {
     }
 
     stage('publish') {
+      echo "Getting credentials for brand ${brand}"
       withCredentials([file(credentialsId: "${brand}-gce-service-account", variable: 'FILE')]) {
         sh "set +x; docker login -u _json_key -p \"\$(cat $FILE)\" https://eu.gcr.io; set -x"
         ansiColor('xterm') {
