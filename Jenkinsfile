@@ -12,11 +12,9 @@
 //]) {
 
   node {
-    echo "starting process ${PATH}"
+    echo "starting process ${env.HELM_VERSION}"
 
-    sh "printenv"
-
-    def SBT = "sbt -Dsbt.log.noformat=true"
+    def SBT = "${env.SBT_HOME}/bin/sbt -Dsbt.log.noformat=true"
 
     def branch = env.BRANCH_NAME
 
