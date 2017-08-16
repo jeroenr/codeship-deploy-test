@@ -1,10 +1,10 @@
 build:
   image: eu.gcr.io/weeronline-apps/sbt-git-docker
   add_docker: true
-#  encrypted_dockercfg_path: gcr_dockercfg.env.encrypted
+  encrypted_dockercfg_path: gcr_dockercfg.env.encrypted
   encrypted_env_file: google_deployment.env.encrypted
-#  volumes:
-#    - .:/tmp
+  volumes:
+    - .:/tmp
   volumes_from:
     - source # mount data-only container which contains project source so sbt can build it
 
@@ -16,16 +16,18 @@ source:
 #testvolume:
 #  image: busybox
 #  add_docker: true
+#  encrypted_dockercfg_path: gcr_dockercfg.env.encrypted
+#  encrypted_env_file: google_deployment.env.encrypted
 #  volumes_from:
 #    - build
 
-#deploy:
-#  build:
-##    context: /tmp/target/docker
-#    dockerfile: Dockerfile
-#    image: eu.gcr.io/weeronline-apps/hello-world
-##  volumes_from:
-##    - build
+deploy:
+  build:
+    path: /tmp/target/docker
+    dockerfile: Dockerfile
+    image: eu.gcr.io/weeronline-apps/hello-world
+  volumes_from:
+    - build
 #  volumes:
 #    - .:/tmp/target/docker
 
@@ -33,7 +35,7 @@ source:
 gcr_dockercfg:
   image: codeship/gcr-dockercfg-generator
   add_docker: true
-#  encrypted_dockercfg_path: gcr_dockercfg.env.encrypted
+  encrypted_dockercfg_path: gcr_dockercfg.env.encrypted
   encrypted_env_file: google_deployment.env.encrypted
 #googleclouddeployment:
 #  image: eu.gcr.io/zoover-apps/google-cloud-deployment
