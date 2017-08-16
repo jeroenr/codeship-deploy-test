@@ -1,33 +1,26 @@
 #!groovy
 
-def buildAndPush(brand) {
-  node {
-    def SBT = "${env.SBT_HOME}/bin/sbt -Dsbt.log.noformat=true"
+node {
+  def SBT = "${env.SBT_HOME}/bin/sbt -Dsbt.log.noformat=true"
+  def BRAND = brand
 
-    checkout scm
+  checkout scm
 
-    stage('compile') {
-      sh "${SBT} compile"
-    }
+  stage('compile') {
+    sh "${SBT} compile"
+  }
 
-    stage('test') {
-      sh "${SBT} test"
-    }
+  stage('test') {
+    sh "${SBT} test"
+  }
 
-    stage('publish') {
-      echo "Getting credentials for brand ${brand}"
-      withCredentials([file(credentialsId: "${brand}-gce-service-account", variable: 'FILE')]) {
-        sh "set +x; docker login -u _json_key -p \"\$(cat $FILE)\" https://eu.gcr.io; set -x"
-        ansiColor('xterm') {
-          sh "${SBT} docker:publish"
-        }
+  stage('publish') {
+    withCredentials([file(credentialsId: "weeronline-gce-service-account", variable: 'FILE')]) {
+      sh "set +x; docker login -u _json_key -p \"\$(cat $FILE)\" https://eu.gcr.io; set -x"
+      ansiColor('xterm') {
+        sh "${SBT} docker:publish"
       }
     }
   }
-}
-
-stage('Build & Push') {
-  milestone()
-  buildAndPush("weeronline")
 }
 
