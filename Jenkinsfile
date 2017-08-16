@@ -12,7 +12,7 @@
 //]) {
 
   node {
-    echo "starting process ${env.HELM_VERSION}"
+    echo "starting process"
 
     def SBT = "${env.SBT_HOME}/bin/sbt -Dsbt.log.noformat=true"
 
