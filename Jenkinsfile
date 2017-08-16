@@ -14,7 +14,7 @@
   node {
     echo "starting process"
 
-    def SBT = "${SBT_HOME}/bin/sbt -Dsbt.log.noformat=true"
+    def SBT = "sbt -Dsbt.log.noformat=true"
 
     def branch = env.BRANCH_NAME
 
