@@ -2,7 +2,6 @@
 
 node {
   def SBT = "${env.SBT_HOME}/bin/sbt -Dsbt.log.noformat=true"
-  def BRAND = brand
 
   checkout scm
 
