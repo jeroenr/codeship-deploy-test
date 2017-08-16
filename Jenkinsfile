@@ -12,7 +12,9 @@
 //]) {
 
   node {
-    echo "starting process"
+    echo "starting process ${PATH}"
+
+    sh "printenv"
 
     def SBT = "sbt -Dsbt.log.noformat=true"
 
