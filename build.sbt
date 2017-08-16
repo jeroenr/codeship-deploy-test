@@ -73,11 +73,10 @@ updateOptions := updateOptions.value.withCachedResolution(true)
 enablePlugins(JavaServerAppPackaging)
 enablePlugins(AshScriptPlugin)
 enablePlugins(DockerPlugin)
-enablePlugins(DockerSpotifyClientPlugin)
 
 publishArtifact in (Compile, packageDoc) := false
 
-val shortCommit = ("git rev-parse --short HEAD" !!).replaceAll("\\n", "").replaceAll("\\r", "")
+lazy val shortCommit = ("git rev-parse --short HEAD" !!).replaceAll("\\n", "").replaceAll("\\r", "")
 
 packageName in Docker := "weeronline-apps/" + name.value
 version in Docker     := shortCommit
