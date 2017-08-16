@@ -11,7 +11,7 @@
 //        containerTemplate(name: 'sbt', image: 'codestar/circleci-scala-sbt-git', ttyEnabled: true, command: 'cat')
 //]) {
 
-  node('sbt') {
+  node {
     echo "starting process"
 
     def SBT = "${SBT_HOME}/bin/sbt -Dsbt.log.noformat=true"
