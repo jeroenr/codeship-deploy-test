@@ -13,6 +13,10 @@ node {
     sh "${SBT} test"
   }
 
+  stage('build image') {
+    sh "${SBT} docker:publishLocal"
+  }
+
   stage('publish') {
     withCredentials([file(credentialsId: "weeronline-gce-service-account", variable: 'FILE')]) {
       sh "set +x; docker login -u _json_key -p \"\$(cat $FILE)\" https://eu.gcr.io; set -x"
