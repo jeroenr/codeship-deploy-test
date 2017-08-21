@@ -77,9 +77,11 @@ enablePlugins(DockerPlugin)
 publishArtifact in (Compile, packageDoc) := false
 
 lazy val shortCommit = ("git rev-parse --short HEAD" !!).replaceAll("\\n", "").replaceAll("\\r", "")
+lazy val branch = ("git rev-parse --abbrev-ref HEAD" !!).replaceAll("\\n", "").replaceAll("\\r", "")
 
 packageName in Docker := "weeronline-apps/" + name.value
 version in Docker     := shortCommit
+dockerLabels          := Map("maintainer" -> organization.value, "branch" -> branch)
 dockerBaseImage       := "openjdk:8-jre-alpine"
 defaultLinuxInstallLocation in Docker := s"/opt/${name.value}" // to have consistent directory for files
 dockerRepository := Some("eu.gcr.io")
