@@ -15,11 +15,16 @@
 #  dockercfg_service: gcr_dockercfg
 #  command: sbt docker:publishLocal
 #
-#- name: View Dockerfile
-#  tag: ^(develop|master|release.*)
-#  service: testvolume
-#  dockercfg_service: gcr_dockercfg
-#  command: cat /tmp/target/docker/Dockerfile
+- name: Test
+  service: deploy
+  dockercfg_service: gcr_dockercfg
+  command: true
+
+- name: View Dockerfile
+  tag: ^(develop|master|release.*)
+  service: deploy
+  dockercfg_service: gcr_dockercfg
+  command: cat /tmp/target/docker/Dockerfile
 
 #- name: View docker config
 #  tag: ^(develop|master|release.*)
